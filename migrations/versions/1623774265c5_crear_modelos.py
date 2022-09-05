@@ -1,8 +1,8 @@
-"""creacion de tablas
+"""crear modelos
 
-Revision ID: 274f907f303d
+Revision ID: 1623774265c5
 Revises: 
-Create Date: 2022-08-25 15:28:28.310536
+Create Date: 2022-09-05 10:30:18.599193
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '274f907f303d'
+revision = '1623774265c5'
 down_revision = None
 branch_labels = None
 depends_on = None

@@ -1,1 +1,2 @@
-"# curso-fastapi" 
+# REALIZAAR MIGRACIONES
+alembic init migrations

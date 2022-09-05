@@ -19,7 +19,7 @@ def obtener_usuario(db:Session = Depends(get_db),current_user = Depends(get_curr
     return data
 
 @router.post("/",status_code= status.HTTP_201_CREATED)
-def crear_usuario(usuario:User,db:Session = Depends(get_db),current_user = Depends(get_current_user)):
+def crear_usuario(usuario:User,db:Session = Depends(get_db)):
     user.crear_usuario(usuario,db)
     return {"respuesta": "Usuario creado con exito!!"}
 
