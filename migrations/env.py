@@ -6,19 +6,16 @@ from sqlalchemy import pool
 
 from alembic import context
 
-from alembic import context
 from core.config import settings
 
 config = context.config
-config.set_main_option('sqlalchemy', settings.DATBASE_URL)
+config.set_main_option("sqlalchemy.url",settings.DATBASE_URL)
 
 if config.config_file_name is not None:
     fileConfig(config.config_file_name)
-
+    
 from app.db.models import Base
 target_metadata = Base.metadata
-
-
 def run_migrations_offline() -> None:
     """Run migrations in 'offline' mode.
 
