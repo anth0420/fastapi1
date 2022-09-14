@@ -95,6 +95,5 @@ def mostrar_usuarios(request: Request,current_user = Depends(get_current_user)):
     print("->", current_user)
     if current_user:
         return templates.TemplateResponse('mostrar_usuarios.html', {"request": request, "msj": msj})
-    # return templates.TemplateResponse('login.html', {"request": request, "msj": "Aun no esta autenticado para ingresar a esta pagina"})
     response = RedirectResponse("/", status_code=302)
     return response

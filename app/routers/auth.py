@@ -16,3 +16,4 @@ def Login(usuario:OAuth2PasswordRequestForm = Depends(),db:Session = Depends(get
     auth_token = auth.auth_user(usuario, db)
     return auth_token
 
+

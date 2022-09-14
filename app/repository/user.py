@@ -1,7 +1,9 @@
+
 from sqlalchemy.orm import Session
 from app.db import models
 from fastapi import HTTPException,status
 from app.hashing import Hash
+
 
 
 def crear_usuario(usuario,db= Session):
@@ -24,7 +26,6 @@ def crear_usuario(usuario,db= Session):
             status_code=status.HTTP_409_CONFLICT,
             detail= f"Error creando usuario{e}"
         )
-
 def obtener_usuario(user_id,db= Session):
     usuario = db.query(models.User).filter(models.User.id == user_id).first()
     if not usuario:
@@ -47,6 +48,7 @@ def eliminar_usuario(user_id,db=Session):
 def obtner_usuarios(db:Session):
     data = db.query(models.User).all()
     return data
+
 
 def actualizar_usuario(user_id,db:Session,updateUser):
     usuario = db.query(models.User).filter(models.User.id == user_id)

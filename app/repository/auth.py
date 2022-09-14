@@ -23,3 +23,4 @@ def auth_user(usuario, db=Session):
         data={"sub": usuario.username}
     )
     return {"access_token": access_token, "token_type": "bearer"}
+
