@@ -1,8 +1,9 @@
+from os import O_RANDOM
 from typing import Union
 from datetime import datetime
 from pydantic import BaseModel
 from typing import Optional
-from datetime import datetime
+
 
 #USer Model 
 class User(BaseModel):
@@ -43,3 +44,9 @@ class Token(BaseModel):
 class TokenData(BaseModel):
     username: Union[str, None] = None
     correo: Union[str,None] = None
+
+class Estudios(BaseModel):
+    estudio: str
+    creacion:datetime = datetime.now()
+    class Config():
+        orm_mode = True

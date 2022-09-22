@@ -1,4 +1,8 @@
 
+from email.policy import default
+from enum import unique
+from tkinter import CASCADE
+from tkinter.tix import COLUMN
 from app.db.database import Base
 from sqlalchemy import Column,Integer,String,Boolean,DateTime
 from datetime import datetime
@@ -16,7 +20,7 @@ class User(Base):
     correo = Column(String, unique=True)
     telefono = Column(Integer)
     creacion = Column(DateTime,default=datetime.now,onupdate= datetime.now)
-    estado = Column(Boolean,default= False)
+    estado = Column(Boolean)
     venta = relationship("Venta",backref="usuario",cascade="delete,merge")
 
 
@@ -27,3 +31,8 @@ class Venta(Base):
     venta = Column(Integer)
     venta_producto = Column(Integer)
 
+class Estudios(Base):
+    __tablename__ = "estudios"
+    id = Column(Integer,primary_key= True, autoincrement= True)
+    estudio = Column(String)
+    creacion = Column(DateTime,default=datetime.now,onupdate= datetime.now)

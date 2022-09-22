@@ -1,22 +1,15 @@
-
 from sqlalchemy.orm import Session
 from app.db import models
 from fastapi import HTTPException,status
-from app.hashing import Hash
 
 
 
-def crear_usuario(usuario,db= Session):
-    usuario = usuario.dict()
+
+def enviar_estudios(estudio,db= Session):
+    estudio = estudio.dict()
     try:
-        nuevo_usuario = models.User(     
-            username = usuario["username"],
-            password = Hash.hash_password(usuario["password"]),
-            nombre = usuario["nombre"],
-            apellido = usuario["apellido"],
-            direccion = usuario["direccion"],
-            correo = usuario["correo"],
-            telefono = usuario["telefono"],
+        nuevo_usuario = models.Estudios(     
+            estudio = estudio["estudio"],
         )
         db.add(nuevo_usuario)
         db.commit()
@@ -24,39 +17,37 @@ def crear_usuario(usuario,db= Session):
     except Exception as e:
         raise HTTPException(
             status_code=status.HTTP_409_CONFLICT,
-            detail= f"Error creando usuario{e}"
+            detail= f"Error enviando estudio{e}"
         )
-def obtener_usuario(user_id,db= Session):
-    usuario = db.query(models.User).filter(models.User.id == user_id).first()
-    if not usuario:
-        raise HTTPException(
-            status_code= status.HTTP_404_NOT_FOUND,
-            detail= f"No existe el usuario con el id {user_id}"
-            )
-    return usuario
-def eliminar_usuario(user_id,db=Session):
-    usuario = db.query(models.User).filter(models.User.id == user_id)
-    if not usuario.first():
-        raise HTTPException(
-            status_code= status.HTTP_404_NOT_FOUND,
-            detail= f"No existe el usuario con el id {user_id} por lo tanto no se elimina"
+def solicitar_estudios(estudio,db=Session):
+    estudio = estudio.dict()
+    try:
+        nuevo_estudio = models.Estudios(
+            estudio = estudio["estudio"],
         )
-    usuario.delete(synchronize_session= False)
-    db.commit()
-    return {"respueta": "usuario eliminado correctamente!!"}
-
-def obtner_usuarios(db:Session):
-    data = db.query(models.User).all()
+        db.add(nuevo_estudio)
+        db.commit()
+        db.refresh(nuevo_estudio)
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_409_CONFLICT,
+            detail=f"Error solicitando estudio{e}"
+        )
+# def obtener_estudios(estudio_id,db= Session):
+#     usuario = db.query(models.Estudios).filter(models.Estudios.id == id).first()
+#     if not usuario:
+#         raise HTTPException(
+#             status_code= status.HTTP_404_NOT_FOUND,
+#             detail= f"No existe el usuario con el id {estudio_id}"
+#             )
+#     return usuario
+def obtener_usuario(db:Session):
+    data = db.query(models.Estudios).all()
     return data
 
 
-def actualizar_usuario(user_id,db:Session,updateUser):
-    usuario = db.query(models.User).filter(models.User.id == user_id)
-    if not usuario.first():
-        raise HTTPException(
-            status_code= status.HTTP_404_NOT_FOUND,
-            detail= f"No existe el usuario con el id {user_id}"
-        )
-    usuario.update(updateUser.dict(exclude_unset=True))
-    db.commit()
-    return {"respuesta": "usuario  actualizado!!"}
+def obtener_estudios(db:Session):
+    data = db.query(models.Estudios).all()
+    return data
+
+
